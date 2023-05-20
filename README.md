@@ -102,3 +102,9 @@ You can create a new terminal in VS Code. cd into the user directory and run its
 ```node app.js```
 Now you're running both services simultaneously!
 You can access them both (by port number) in Postman.
+
+
+//
+npm install ejs
+npm install mustache
+npm install jsdom

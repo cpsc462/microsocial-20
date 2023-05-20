@@ -348,3 +348,31 @@ router.delete("/user/:id", (req, res) => {
 
   res.status(StatusCodes.NO_CONTENT).end();
 });
+
+router.patch("/user/:id/email", (req, res) => {
+  db.get(`PRAGMA table(users)`, function(err, columns) {
+    if (err) {
+        console.error(err.message);
+    }
+    if (!columns.some(column => column.name === 'email')) {
+        db.run(`ALTER TABLE table_name ADD COLUMN email TEXT`);
+    }
+});
+
+  const userId = req.body.id;
+  const stmt = db.prepare("SELECT email FROM users where id = ?");
+  email = stmt.all([userId]);
+
+  if (email.length === 0) {
+    db.run("INSERT INTO users (email) VALUES (?);", email, (err) => {
+      if (err) {
+        console.error(err.message);
+      } else {
+        console.log("Email has been inserted successfully.");
+      }
+    });
+  }
+
+})
+
+  const id = parseInt(req.params.id);

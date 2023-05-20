@@ -6,7 +6,6 @@ const path = require('path')
 const { v4: uuidv4 } = require('uuid')
 const ms = require('ms')
 const dotenv = require('dotenv')
-
 const { unprotectedPaths, USERS_SERVICE, log_event, returnError } = require('../common')
 const { validate } = require('../utils/schema-validation')
 var { db } = require('../db')
@@ -282,7 +281,7 @@ router.post('/auth/login', async (req, res) => {
     refresh_token,
     uri: USERS_SERVICE(`/user/${logged_in_user.id}`)
   })
-  res.status(StatusCodes.OK)
+
 })
 
 /**
@@ -301,7 +300,9 @@ router.post('/auth/login', async (req, res) => {
  *             schema:
  *               type: html
  */
-router.get('/auth/login', (req, res) => {
-  const filename = 'login.html'
-  res.sendFile(filename, { root: path.join(__dirname) })
-})
+
+router.get('/auth/profile', (req, res) => {
+  const filename = 'profile.html';
+  res.sendFile(filename, {root: (__dirname)});
+});
+  

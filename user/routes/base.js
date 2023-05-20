@@ -1,6 +1,10 @@
 var express = require('express');
+var path = require('path');
 var router = express.Router();
 module.exports.router = router;
+const { db } = require('../db');
+require('dotenv').config();
+
 
 /**
  * @swagger
@@ -19,7 +23,10 @@ module.exports.router = router;
  *               type: string
  */
 router.get("/", (req, res) => {
-  res.type('text/plain');
-  res.send("Hello you!");
+  res.sendFile(path.join(__dirname, 'login.html'));
+});
+
+router.post("/email", (req, res) => {
+  res.sendFile(path.join(__dirname, 'changeEmail.html'));
 });
 

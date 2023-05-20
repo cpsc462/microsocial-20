@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+    
+        a {
+            text-decoration: none;
+        }
+    
+        input,button {
+            background: transparent;
+            border: 0;
+            outline: none;
+            justify-content: center;
+        }
+    
+        body {
+            height: 100vh;
+            background-size: contain;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 16px;
+            color: #ffffff;
+        }
+    
+        .createAccount {
+            width: 600px;
+            height: 764px;
+            background-color: rgb(123, 123, 123);
+            margin: 100px auto;
+            border-radius: 10px;
+            box-shadow: 0 15px 25px 0 rgba(0, 0, 0, .6);
+            padding: 40px;
+            box-sizing: border-box;
+        }
+    
+        h2 {
+            text-align: center;
+            color: aliceblue;
+            margin-bottom: 30px;
+            font-family: 'Courier New', Courier, monospace;
+        }
+    
+        .item {
+            height: 90px;
+            border-bottom: 1px solid #fff;
+            margin-bottom: 1px;
+            position: relative;
+        }
+    
+        .item input {
+            width: 100%;
+            height: 100%;
+            color: #f1f1f1;
+            padding-top: 5px;
+            box-sizing: content-box;
+            font-size: 100%;
+        }
+    
+        .item input:focus+label,
+        .item input:valid+label {
+            top: 0px;
+            font-size: 3px;
+        }
+    
+        .item label {
+            position: absolute;
+            color: #ffffff;
+            left: 0;
+            top: 20px;
+            transition: all 0.5s linear;
+        }
+    
+        .btn_input {
+            padding: 10px 20px;
+            margin-top: 30px;
+            color: #f1f1f1;
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            justify-content: center;
+        }
+    
+        .btn_input:hover {
+            border-radius: 5px;
+            color: rgb(0, 0, 0);
+            background: #ffffff;
+            box-shadow: 0 0 5px 0 #ffffff,
+                0 0 25px 0 #ffffff,
+                0 0 50px 0 #ffffff,
+                0 0 100px 0 #ffffff;
+            transition: all 1s linear;
+        }
+    
+        .btn_input>span {
+            position: absolute;
+        }
+    
+        .modal {
+            display: none;
+            position: fixed;
+              z-index: 1;
+              padding-top: 100px;
+              left: 0;
+              top: 0;
+              width: 100%;
+              height: 100%;
+              overflow: auto;
+              background-color: rgb(0,0,0);
+              background-color: rgba(0,0,0,0.4);
+        }
+        
+        .modal-content {
+            background-color: #ffffff;
+              margin: auto;
+              padding: 30px;
+              border: 1px solid rgb(255, 255, 255);
+              width: 80%;
+        }
+    
+    </style>
+<head>
+    <title>Create Account</title>
+</head>
+<body>
+    <div class="createAccount">
+    <h1 style="color: #ffffff; text-align: center;">Create Account</h1>
+    <p></p>
+    <form action="/user/createAccount" method="post">
+        <div class="item">
+            <label for="name"><span style="color: #ff0000;">* </span>Username:</label><br>
+            <input type="text" id="name" name="name"  required><br>
+        </div>
+        
+        <div class="item">
+            <label for="email"><lr style="color: #ff0000;">* </lr>Email:</label><br>
+            <input type="email" id="email" name="email" required><br>
+        </div>
+        <div class="item">
+            <label for="password"><lr style="color: #ff0000;">* </lr>Password:</label><br>
+            <input type="password" id="password" name="password" required><br>
+        </div>
+        <div class="item">
+            <label for="passwordHit">Password Hit (Optional):</label><br>
+            <input type="passwordHit" id="passwordHit" name="passwordHit"><br>
+        </div>
+        <div class="item">
+            <label for="countryOfResidence"><lr style="color: #ff0000;">* </lr>Country Of Residence:</label><br>
+            <input type="countryOfResidence" id="countryOfResidence" name="countryOfResidence" required><br>
+        </div>
+        <div class="item">
+            <label for="phoneNumber"><lr style="color: #ff0000;">* </lr>Phone Number:</label><br>
+            <input type="phoneNumber" id="phoneNumber" name="phoneNumber" pattern="\d{10}" title="Format: 1234567890" maxlength="10" minlength="10" required><br>
+        </div>
+        <p type="datetime-local" id="created_at" name="created_at"></p><br>
+        <input type="hidden" id="created_at" name="created_at">
+
+        <input class="btn_input" type="submit" value="Create Account" onclick="checkUser()">
+        <a style="color:#ffffff; padding-left: 30px;" href="http://localhost:8000/">Already have an Account?</a>
+    </form>
+</div>
+    <p id="message"></p>
+    <script>
+    document.getElementById("created_at").value = new Date().toISOString();
+    </script>
+</body>
+</html>

@@ -5,6 +5,8 @@ const helmet = require("helmet");
 const fs = require('fs');
 const path = require('path');
 const xmlparser = require('express-xml-bodyparser');
+const ejs = require('ejs');
+
 
 const { StatusCodes } = require('http-status-codes');
 
@@ -18,6 +20,10 @@ app.use(bodyParser.urlencoded({ limit: '50mb',extended: true }));
 app.use(cookieParser())
 app.use(xmlparser({ explicitArray: false }))
 app.use(helmet())
+app.set('view engine', 'ejs');
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
 
 
 // if it's got JSON, don't allow invalid JSON
