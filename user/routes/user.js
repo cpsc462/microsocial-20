@@ -349,30 +349,51 @@ router.delete("/user/:id", (req, res) => {
   res.status(StatusCodes.NO_CONTENT).end();
 });
 
-router.patch("/user/:id/email", (req, res) => {
-  db.get(`PRAGMA table(users)`, function(err, columns) {
+router.post("/user/:id/addEmail", (req, res) => {
+  db.get(`PRAGMA table_info(users)`, function(err, columns) {
     if (err) {
-        console.error(err.message);
+      console.error(err.message);
     }
     if (!columns.some(column => column.name === 'email')) {
-        db.run(`ALTER TABLE table_name ADD COLUMN email TEXT`);
+      db.run(`ALTER TABLE users ADD COLUMN email TEXT`);
     }
-});
+  });
 
-  const userId = req.body.id;
-  const stmt = db.prepare("SELECT email FROM users where id = ?");
-  email = stmt.all([userId]);
+  const userId = req.params.id;
+  const stmt = db.prepare("SELECT email FROM users WHERE id = ?");
+  const email = stmt.get(userId);
 
-  if (email.length === 0) {
-    db.run("INSERT INTO users (email) VALUES (?);", email, (err) => {
+  if (!email) {
+    db.run("INSERT INTO users (email) VALUES (?);", [userId], (err) => {
       if (err) {
         console.error(err.message);
+        res.status(500).json({ message: "Error" });
       } else {
-        console.log("Email has been inserted successfully.");
+        console.log("Successfully.");
+        res.json({ message: "Email has been inserted successfully." });
       }
     });
+  } else {
+    res.status(400).json({ message: "Email already exists." });
   }
+});
 
-})
 
-  const id = parseInt(req.params.id);
+router.patch("/user/:id/changeEmail", (req, res) => {
+  const newEmail = req.body.email;
+  const userId = req.params.id;
+
+  if (newEmail.length !== 0) {
+    db.run("UPDATE users SET email = ? WHERE id = ?", [newEmail, userId], (err) => {
+      if (err) {
+        console.error(err.message);
+        res.status(500).json({ message: "Error." });
+      } else {
+        console.log("Successful!!!");
+        res.json({ message: "Email updated successful!!!" });
+      }
+    });
+  } else {
+    res.status(400).json({ message: "Invalid email." });
+  }
+});

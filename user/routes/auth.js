@@ -305,4 +305,5 @@ router.get('/auth/profile', (req, res) => {
   const filename = 'profile.html';
   res.sendFile(filename, {root: (__dirname)});
 });
-  
+
+

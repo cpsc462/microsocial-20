@@ -26,7 +26,5 @@ router.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, 'login.html'));
 });
 
-router.post("/email", (req, res) => {
-  res.sendFile(path.join(__dirname, 'changeEmail.html'));
-});
+
 
